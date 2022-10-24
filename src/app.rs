@@ -1,26 +1,17 @@
 #[cfg(target_os = "macos")]
-use crate::macos::get_string_from_clipboard;
+use crate::get_clipboard_item;
 
-/// We derive Deserialize/Serialize so we can persist app state on shutdown.
-#[derive(serde::Deserialize, serde::Serialize)]
-#[serde(default)] // if we add new fields, give them default values when deserializing old state
-pub struct TemplateApp {
-    // Example stuff:
-    label: String,
-
-    // this how you opt-out of serialization of a member
-    #[serde(skip)]
-    value: f32,
+#[derive(Default)]
+struct Window {
+    always_on_top: bool,
 }
 
-impl Default for TemplateApp {
-    fn default() -> Self {
-        Self {
-            // Example stuff:
-            label: "Hello World!".to_owned(),
-            value: 2.7,
-        }
-    }
+/// We derive Deserialize/Serialize so we can persist app state on shutdown.
+#[derive(serde::Deserialize, serde::Serialize, Default)]
+#[serde(default)] // if we add new fields, give them default values when deserializing old state
+pub struct TemplateApp {
+    #[serde(skip)]
+    window: Window,
 }
 
 impl TemplateApp {
@@ -48,12 +39,10 @@ impl eframe::App for TemplateApp {
     /// Called each time the UI needs repainting, which may be many times per second.
     /// Put your widgets into a `SidePanel`, `TopPanel`, `CentralPanel`, `Window` or `Area`.
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
-        let Self { label, value } = self;
+        let Self { window } = self;
 
-        // Examples of how to create different panels and windows.
-        // Pick whichever suits you.
-        // Tip: a good default choice is to just keep the `CentralPanel`.
-        // For inspiration and more examples, go to https://emilk.github.io/egui
+        #[cfg(target_os = "macos")]
+        let clipboard_item = get_clipboard_item();
 
         #[cfg(not(target_arch = "wasm32"))] // no File->Quit on web pages!
         egui::TopBottomPanel::top("top_panel").show(ctx, |ui| {
@@ -64,19 +53,42 @@ impl eframe::App for TemplateApp {
                         _frame.close();
                     }
                 });
+                ui.menu_button("Window", |ui| {
+                    if ui
+                        .checkbox(&mut window.always_on_top, "Stay in Front")
+                        .clicked()
+                    {
+                        _frame.set_always_on_top(window.always_on_top);
+                    }
+                });
             });
         });
-
-        egui::SidePanel::left("side_panel").show(ctx, |ui| {});
 
         egui::CentralPanel::default().show(ctx, |ui| {
-            egui::ScrollArea::vertical().show(ui, |ui| {
-                #[cfg(target_os = "macos")]
-                {
-                    ui.label(get_string_from_clipboard())
-                }
-            });
+            egui::ScrollArea::vertical()
+                .auto_shrink([false, false])
+                .show(ui, |ui| {
+                    #[cfg(target_os = "macos")]
+                    {
+                        if let Some(clipboard_item) = clipboard_item.clone() {
+                            clipboard_item.as_egui_response(ui);
+                        }
+                    }
+                });
             // The central panel the region left after adding TopPanel's and SidePanel's
         });
+
+        egui::TopBottomPanel::bottom("bottom_panel").show(ctx, |ui| {
+            egui::menu::bar(ui, |ui| {
+                #[cfg(target_os = "macos")]
+                {
+                    if let Some(clipboard_item) = clipboard_item.clone() {
+                        ui.label(format!("Clipboard contents: {}", clipboard_item));
+                    }
+                }
+            });
+        });
+
+        ctx.request_repaint()
     }
 }
