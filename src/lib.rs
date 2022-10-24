@@ -2,3 +2,6 @@
 
 mod app;
 pub use app::TemplateApp;
+
+#[cfg(target_os = "macos")]
+mod macos;

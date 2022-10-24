@@ -44,6 +44,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "app-kit-proc-macros"
+version = "0.2.2"
+source = "git+https://github.com/a-isaiahharvey/rust-macios?branch=main#2aa49c18e3816c088329e4cb61bc33176c28d9b5"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
 name = "arboard"
 version = "3.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -194,6 +204,7 @@ dependencies = [
  "eframe",
  "egui",
  "libc",
+ "rust-macios",
  "serde",
  "tracing-subscriber",
  "tracing-wasm",
@@ -1096,6 +1107,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "915b1b472bc21c53464d6c8461c9d3af805ba1ef837e1cac254428f4a77177b1"
 dependencies = [
  "malloc_buf",
+ "objc_exception",
 ]
 
 [[package]]
@@ -1110,12 +1122,31 @@ dependencies = [
 ]
 
 [[package]]
+name = "objc_exception"
+version = "0.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ad970fb455818ad6cba4c122ad012fae53ae8b4795f86378bce65e4f6bab2ca4"
+dependencies = [
+ "cc",
+]
+
+[[package]]
 name = "objc_id"
 version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c92d4ddb4bd7b50d730c215ff871754d0da6b2178849f8a2a2ab69712d0c073b"
 dependencies = [
  "objc",
+]
+
+[[package]]
+name = "objective-c-runtime-proc-macros"
+version = "0.2.2"
+source = "git+https://github.com/a-isaiahharvey/rust-macios?branch=main#2aa49c18e3816c088329e4cb61bc33176c28d9b5"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]
@@ -1277,6 +1308,21 @@ dependencies = [
  "base64",
  "bitflags",
  "serde",
+]
+
+[[package]]
+name = "rust-macios"
+version = "0.2.3"
+source = "git+https://github.com/a-isaiahharvey/rust-macios?branch=main#2aa49c18e3816c088329e4cb61bc33176c28d9b5"
+dependencies = [
+ "app-kit-proc-macros",
+ "bitflags",
+ "block",
+ "lazy_static",
+ "libc",
+ "objc",
+ "objc_id",
+ "objective-c-runtime-proc-macros",
 ]
 
 [[package]]

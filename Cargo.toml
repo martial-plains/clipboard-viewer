@@ -23,6 +23,11 @@ serde = { version = "1.0.147", features = [
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
 tracing-subscriber = "0.3.16"
 
+# macOS:
+[target.'cfg(target_os = "macos")'.dependencies]
+rust-macios = { git = "https://github.com/a-isaiahharvey/rust-macios", branch = "main", default-features = false, features = [
+    "appkit",
+] }
 
 # web:
 [target.'cfg(target_arch = "wasm32")'.dependencies]
