@@ -17,7 +17,8 @@ fn main() {
 
 // when compiling to web using trunk.
 #[cfg(target_arch = "wasm32")]
-fn main() {
+#[tokio::main(flavor = "current_thread")]
+async fn main() {
     // Make sure panics are logged using `console.error`.
     console_error_panic_hook::set_once();
 
@@ -30,5 +31,6 @@ fn main() {
         web_options,
         Box::new(|cc| Box::new(clipboard_viewer::TemplateApp::new(cc))),
     )
+    .await
     .expect("failed to start eframe");
 }

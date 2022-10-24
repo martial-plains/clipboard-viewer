@@ -9,7 +9,6 @@ description = "A clipboard viewer"
 
 
 [dependencies]
-libc = "0.2.0"
 egui = { git = "https://github.com/emilk/egui", branch = "master" }
 eframe = { git = "https://github.com/emilk/egui", branch = "master", features = [
     "persistence",
@@ -31,6 +30,10 @@ rust-macios = { git = "https://github.com/a-isaiahharvey/rust-macios", branch = 
 
 # web:
 [target.'cfg(target_arch = "wasm32")'.dependencies]
+tokio = { version = "1.21.2", default-features = false, features = [
+    "macros",
+    "rt",
+] }
 console_error_panic_hook = "0.1.7"
 tracing-wasm = "0.2.1"
 
