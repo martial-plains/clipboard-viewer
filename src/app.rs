@@ -1,3 +1,4 @@
+#[cfg(target_os = "macos")]
 use crate::macos::get_string_from_clipboard;
 
 /// We derive Deserialize/Serialize so we can persist app state on shutdown.
