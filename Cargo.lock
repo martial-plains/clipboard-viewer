@@ -58,16 +58,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "app-kit-proc-macros"
-version = "0.2.2"
-source = "git+https://github.com/a-isaiahharvey/rust-macios?branch=main#e8ffbe7e651499d240e85c8703a87e08e76f5110"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn",
-]
-
-[[package]]
 name = "arboard"
 version = "3.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1610,16 +1600,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "objective-c-runtime-proc-macros"
-version = "0.2.2"
-source = "git+https://github.com/a-isaiahharvey/rust-macios?branch=main#e8ffbe7e651499d240e85c8703a87e08e76f5110"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn",
-]
-
-[[package]]
 name = "once_cell"
 version = "1.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1945,16 +1925,39 @@ dependencies = [
 [[package]]
 name = "rust-macios"
 version = "0.2.3"
-source = "git+https://github.com/a-isaiahharvey/rust-macios?branch=main#e8ffbe7e651499d240e85c8703a87e08e76f5110"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b1fd6790d61c26b903e3b66b3b4446cc786d50a78023a986945b02c95a2697a4"
 dependencies = [
- "app-kit-proc-macros",
  "bitflags",
  "block",
  "lazy_static",
  "libc",
  "objc",
  "objc_id",
- "objective-c-runtime-proc-macros",
+ "rust-macios-app-kit-proc-macros",
+ "rust-macios-objective-c-runtime-proc-macros",
+]
+
+[[package]]
+name = "rust-macios-app-kit-proc-macros"
+version = "0.2.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "77b11757ec3ab6605d19ff914c9ddad027c5c82e5ee3a5cc856ec3860235537a"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "rust-macios-objective-c-runtime-proc-macros"
+version = "0.2.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "066f9695c697a680355a24bde91f7761833692e531f474fb105625f6fb99aaf9"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]
