@@ -1,5 +1,5 @@
 #[cfg(target_os = "macos")]
-use crate::get_clipboard_item;
+use crate::clipboard::{Clipboard, ClipboardItem};
 
 #[derive(Default)]
 struct Window {
@@ -9,12 +9,16 @@ struct Window {
 /// We derive Deserialize/Serialize so we can persist app state on shutdown.
 #[derive(serde::Deserialize, serde::Serialize, Default)]
 #[serde(default)] // if we add new fields, give them default values when deserializing old state
-pub struct TemplateApp {
+pub struct ClipboardViewerApp {
     #[serde(skip)]
     window: Window,
+
+    #[cfg(target_os = "macos")]
+    #[serde(skip)]
+    clipboard_item: Option<ClipboardItem>,
 }
 
-impl TemplateApp {
+impl ClipboardViewerApp {
     /// Called once before the first frame.
     pub fn new(cc: &eframe::CreationContext<'_>) -> Self {
         // This is also where you can customized the look at feel of egui using
@@ -26,11 +30,15 @@ impl TemplateApp {
             return eframe::get_value(storage, eframe::APP_KEY).unwrap_or_default();
         }
 
-        Default::default()
+        Self {
+            window: Default::default(),
+            #[cfg(target_os = "macos")]
+            clipboard_item: super::get_clipboard_item(),
+        }
     }
 }
 
-impl eframe::App for TemplateApp {
+impl eframe::App for ClipboardViewerApp {
     /// Called by the frame work to save state before shutdown.
     fn save(&mut self, storage: &mut dyn eframe::Storage) {
         eframe::set_value(storage, eframe::APP_KEY, self);
@@ -38,11 +46,19 @@ impl eframe::App for TemplateApp {
 
     /// Called each time the UI needs repainting, which may be many times per second.
     /// Put your widgets into a `SidePanel`, `TopPanel`, `CentralPanel`, `Window` or `Area`.
-    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
-        let Self { window } = self;
-
+    fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
         #[cfg(target_os = "macos")]
-        let clipboard_item = get_clipboard_item();
+        {
+            if Clipboard::has_changed() {
+                self.clipboard_item = super::get_clipboard_item();
+            }
+        }
+
+        let Self {
+            window,
+            #[cfg(target_os = "macos")]
+            clipboard_item,
+        } = self;
 
         #[cfg(not(target_arch = "wasm32"))] // no File->Quit on web pages!
         egui::TopBottomPanel::top("top_panel").show(ctx, |ui| {
@@ -50,7 +66,7 @@ impl eframe::App for TemplateApp {
             egui::menu::bar(ui, |ui| {
                 ui.menu_button("File", |ui| {
                     if ui.button("Quit").clicked() {
-                        _frame.close();
+                        frame.close();
                     }
                 });
                 ui.menu_button("Window", |ui| {
@@ -58,7 +74,7 @@ impl eframe::App for TemplateApp {
                         .checkbox(&mut window.always_on_top, "Stay in Front")
                         .clicked()
                     {
-                        _frame.set_always_on_top(window.always_on_top);
+                        frame.set_always_on_top(window.always_on_top);
                     }
                 });
             });
@@ -70,8 +86,8 @@ impl eframe::App for TemplateApp {
                 .show(ui, |ui| {
                     #[cfg(target_os = "macos")]
                     {
-                        if let Some(clipboard_item) = clipboard_item.clone() {
-                            clipboard_item.as_egui_response(ui);
+                        if let Some(clipboard_item) = clipboard_item {
+                            clipboard_item.as_egui_response(ctx, ui);
                         }
                     }
                 });
@@ -82,13 +98,13 @@ impl eframe::App for TemplateApp {
             egui::menu::bar(ui, |ui| {
                 #[cfg(target_os = "macos")]
                 {
-                    if let Some(clipboard_item) = clipboard_item.clone() {
+                    if let Some(clipboard_item) = clipboard_item {
                         ui.label(format!("Clipboard contents: {}", clipboard_item));
                     }
                 }
             });
         });
 
-        ctx.request_repaint()
+        ctx.request_repaint();
     }
 }

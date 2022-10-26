@@ -14,9 +14,12 @@ eframe = { git = "https://github.com/emilk/egui", branch = "master", features = 
     "persistence",
     "dark-light",
 ] }
-serde = { version = "1.0.147", features = [
-    "derive",
-] } # You only need this if you want app persistence
+egui_extras = { git = "https://github.com/emilk/egui", branch = "master", features = [
+    "image",
+] }
+image = { version = "0.24", features = ["jpeg", "png", "tiff"] }
+serde = { version = "1.0.147", features = ["derive"] }
+log = "0.4.17"
 
 
 # native:

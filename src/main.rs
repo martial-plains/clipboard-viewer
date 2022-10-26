@@ -11,7 +11,7 @@ fn main() {
     eframe::run_native(
         "Clipboard Viewer",
         native_options,
-        Box::new(|cc| Box::new(clipboard_viewer::TemplateApp::new(cc))),
+        Box::new(|cc| Box::new(clipboard_viewer::ClipboardViewerApp::new(cc))),
     );
 }
 
@@ -29,7 +29,7 @@ async fn main() {
     eframe::start_web(
         "the_canvas_id", // hardcode it
         web_options,
-        Box::new(|cc| Box::new(clipboard_viewer::TemplateApp::new(cc))),
+        Box::new(|cc| Box::new(clipboard_viewer::ClipboardViewerApp::new(cc))),
     )
     .await
     .expect("failed to start eframe");
