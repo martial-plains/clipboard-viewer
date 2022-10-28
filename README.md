@@ -1,22 +1,34 @@
-# Clipboard Viewer
+<div align="center">
+	<h1>Clipboard Viewer</h1>
+	<p>
+		<b>Inspect the system clipboards</b>
+	</p>
+	<br>
+	<br>
+	<br>
+</div>
 
-[![dependency status](https://deps.rs/repo/github/emilk/eframe_template/status.svg)](https://deps.rs/repo/github/emilk/eframe_template)
-[![Build Status](https://github.com/emilk/eframe_template/workflows/CI/badge.svg)](https://github.com/emilk/eframe_template/actions?workflow=CI)
+[![dependency status](https://deps.rs/repo/github/a-isaiahharvey/rust-macios/status.svg)](https://deps.rs/repo/github/a-isaiahharvey/rust-macios)
+[![CI](https://github.com/a-isaiahharvey/clipboard-viewer/actions/workflows/rust.yml/badge.svg)](https://github.com/a-isaiahharvey/clipboard-viewer/actions/workflows/rust.yml)
 
-# About
+## About
 
 This is a developer utility that allows you to inspect the various system clipboards.
 
 Note that this is not a clipboard manager. If you're not an app developer, you probably don't want this app.
 
+## Screenshot
 
-# Building
+![](docs/images/Screenshot%202022-10-28%20at%2007.54.55.png)
+
+
+## Building
 
 Make sure you are using the latest version of stable rust by running `rustup update`.
 
 `cargo run --release`
 
-## Linux
+### Linux
 
 On Linux you need to first run:
 
@@ -26,7 +38,7 @@ On Fedora Rawhide you need to run:
 
 `dnf install clang clang-devel clang-tools-extra speech-dispatcher-devel libxkbcommon-devel pkg-config openssl-devel libxcb-devel fontconfig-devel`
 
-## Web
+### Web
 
 You can compile your app to [WASM](https://en.wikipedia.org/wiki/WebAssembly) and publish it as a web page.
 
