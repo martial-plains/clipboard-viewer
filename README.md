@@ -11,6 +11,9 @@
 [![dependency status](https://deps.rs/repo/github/a-isaiahharvey/rust-macios/status.svg)](https://deps.rs/repo/github/a-isaiahharvey/rust-macios)
 [![CI](https://github.com/a-isaiahharvey/clipboard-viewer/actions/workflows/rust.yml/badge.svg)](https://github.com/a-isaiahharvey/clipboard-viewer/actions/workflows/rust.yml)
 
+## Disclaimer
+**This app currently only works on macOS**
+
 ## About
 
 This is a developer utility that allows you to inspect the various system clipboards.
