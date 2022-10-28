@@ -54,3 +54,25 @@ opt-level = 2 # fast and small wasm
 # If you fork https://github.com/emilk/egui you can test with:
 # egui = { path = "../egui/crates/egui" }
 # eframe = { path = "../egui/crates/eframe" }
+
+[package.metadata.bundle]
+name = "Clipboard Viewer"
+identifier = "com.aiharvey.clipboardviewer"
+icon = ["32x32.png", "128x128.png", "128x128@2x.png"]
+version = "0.1.0"
+resources = []
+copyright = "Copyright (c) Allister Isaiah Harvey 2022. All rights reserved."
+category = "Developer Tool"
+short_description = "Inspect the system clipboard on various OSs"
+long_description = """
+This is a developer utility that allows you to inspect the various system clipboards.
+"""
+deb_depends = [
+    "libxcb-render0-dev",
+    "libxcb-shape0-dev",
+    "libxcb-xfixes0-dev",
+    "libspeechd-dev",
+    "libxkbcommon-dev",
+    "libssl-dev",
+]
+osx_frameworks = ["AppKit"]
