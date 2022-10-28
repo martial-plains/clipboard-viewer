@@ -1,6 +1,6 @@
 use std::process::Command;
 
-pub fn open_web_link(link: &str) {
+pub fn open_with_default(path: &str) {
     let mut command = if cfg!(target_os = "windows") {
         Command::new("start")
     } else if cfg!(target_os = "macos") {
@@ -12,7 +12,7 @@ pub fn open_web_link(link: &str) {
     };
 
     command
-        .arg(link)
+        .arg(path)
         .output()
         .expect("falied to execute process");
 }
