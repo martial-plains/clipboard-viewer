@@ -1,5 +1,6 @@
 #[cfg(target_os = "macos")]
 use crate::clipboard::{Clipboard, ClipboardItem};
+use crate::utils::open_web_link;
 
 #[derive(Default)]
 struct Window {
@@ -76,6 +77,13 @@ impl eframe::App for ClipboardViewerApp {
                         frame.set_always_on_top(window.always_on_top);
                     }
                 });
+                ui.menu_button("Help", |ui| {
+                    if ui.button("Report issue").clicked() {
+                        open_web_link(
+                            "https://github.com/a-isaiahharvey/clipboard-viewer/issues/new",
+                        );
+                    }
+                })
             });
         });
 
