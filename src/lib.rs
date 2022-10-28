@@ -9,3 +9,5 @@ mod clipboard;
 mod macos;
 #[cfg(target_os = "macos")]
 pub use macos::get_clipboard_item;
+
+mod utils;
