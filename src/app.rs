@@ -60,7 +60,6 @@ impl eframe::App for ClipboardViewerApp {
             clipboard_item,
         } = self;
 
-        #[cfg(not(target_arch = "wasm32"))] // no File->Quit on web pages!
         egui::TopBottomPanel::top("top_panel").show(ctx, |ui| {
             // The top panel is often a good place for a menu bar:
             egui::menu::bar(ui, |ui| {
