@@ -5,6 +5,7 @@ use egui_extras::RetainedImage;
 
 #[cfg(target_os = "macos")]
 use crate::macos::has_clipboard_changed;
+use crate::utils::open_with_default;
 
 pub enum ClipboardItem {
     Text(String),
@@ -30,8 +31,22 @@ impl ClipboardItem {
     pub fn as_egui_response(&self, ctx: &egui::Context, ui: &mut Ui) -> Response {
         match self {
             ClipboardItem::Text(string) => ui.label(string),
-            ClipboardItem::FilePath(string) => ui.link(string),
-            ClipboardItem::Url(string) => ui.link(string),
+            ClipboardItem::FilePath(string) => {
+                ui.scope(|ui| {
+                    if ui.link(string).clicked() {
+                        open_with_default(string)
+                    }
+                })
+                .response
+            }
+            ClipboardItem::Url(string) => {
+                ui.scope(|ui| {
+                    if ui.link(string).clicked() {
+                        open_with_default(string)
+                    }
+                })
+                .response
+            }
             ClipboardItem::Png(image) => image.show_max_size(ui, ctx.available_rect().size()),
             ClipboardItem::Tiff(image) => image.show_max_size(ui, ctx.available_rect().size()),
         }
