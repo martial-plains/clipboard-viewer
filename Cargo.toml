@@ -1,6 +1,6 @@
 [package]
 name = "clipboard_viewer"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Allister Isaiah Harvey <a.i.harvey@icloud.com>"]
 edition = "2021"
 description = "A clipboard viewer"
