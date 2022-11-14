@@ -1554,7 +1554,7 @@ checksum = "55edcf6c0bb319052dea84732cf99db461780fd5e8d3eb46ab6ff312ab31f197"
 [[package]]
 name = "libclipboard"
 version = "0.1.0"
-source = "git+https://github.com/a-isaiahharvey/libclipboard-rs#fbb046a0b9c22a555518269123eb7deb55cf4208"
+source = "git+https://github.com/a-isaiahharvey/libclipboard-rs?branch=main#9cdc7f0aa00925175d3c162b0bce1995c9830a6d"
 dependencies = [
  "cfg-if",
  "image",
