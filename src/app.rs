@@ -1,5 +1,7 @@
+use libclipboard::Clipboard;
+
+use crate::clipboard::EguiClipboardItem;
 #[cfg(target_os = "macos")]
-use crate::clipboard::{Clipboard, ClipboardItem};
 use crate::utils::open_with_default;
 
 #[derive(Default)]
@@ -8,7 +10,7 @@ struct Window {
 }
 
 /// We derive Deserialize/Serialize so we can persist app state on shutdown.
-#[derive(serde::Deserialize, serde::Serialize, Default)]
+#[derive(serde::Deserialize, serde::Serialize)]
 #[serde(default)] // if we add new fields, give them default values when deserializing old state
 pub struct ClipboardViewerApp {
     #[serde(skip)]
@@ -16,7 +18,23 @@ pub struct ClipboardViewerApp {
 
     #[cfg(target_os = "macos")]
     #[serde(skip)]
-    clipboard_item: Option<ClipboardItem>,
+    clipboard: Clipboard,
+
+    #[cfg(target_os = "macos")]
+    #[serde(skip)]
+    current_item: Option<EguiClipboardItem>,
+}
+
+impl Default for ClipboardViewerApp {
+    fn default() -> Self {
+        let clipboard = Clipboard::new().unwrap();
+        let current_item = EguiClipboardItem::get_clipboard_item(&clipboard);
+        Self {
+            window: Window::default(),
+            clipboard,
+            current_item,
+        }
+    }
 }
 
 impl ClipboardViewerApp {
@@ -31,10 +49,13 @@ impl ClipboardViewerApp {
             return eframe::get_value(storage, eframe::APP_KEY).unwrap_or_default();
         }
 
+        let clipboard = Clipboard::new().unwrap();
+        let current_item = EguiClipboardItem::get_clipboard_item(&clipboard);
+
         Self {
             window: Default::default(),
-            #[cfg(target_os = "macos")]
-            clipboard_item: super::get_clipboard_item(),
+            clipboard,
+            current_item,
         }
     }
 }
@@ -50,16 +71,10 @@ impl eframe::App for ClipboardViewerApp {
     fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
         #[cfg(target_os = "macos")]
         {
-            if Clipboard::has_changed() {
-                self.clipboard_item = super::get_clipboard_item();
+            if self.clipboard.has_changed() {
+                self.current_item = EguiClipboardItem::get_clipboard_item(&self.clipboard);
             }
         }
-
-        let Self {
-            window,
-            #[cfg(target_os = "macos")]
-            clipboard_item,
-        } = self;
 
         egui::TopBottomPanel::top("top_panel").show(ctx, |ui| {
             // The top panel is often a good place for a menu bar:
@@ -71,10 +86,10 @@ impl eframe::App for ClipboardViewerApp {
                 });
                 ui.menu_button("Window", |ui| {
                     if ui
-                        .checkbox(&mut window.always_on_top, "Stay in Front")
+                        .checkbox(&mut self.window.always_on_top, "Stay in Front")
                         .clicked()
                     {
-                        frame.set_always_on_top(window.always_on_top);
+                        frame.set_always_on_top(self.window.always_on_top);
                     }
                 });
                 ui.menu_button("Help", |ui| {
@@ -93,7 +108,7 @@ impl eframe::App for ClipboardViewerApp {
                 .show(ui, |ui| {
                     #[cfg(target_os = "macos")]
                     {
-                        if let Some(clipboard_item) = clipboard_item {
+                        if let Some(clipboard_item) = &self.current_item {
                             clipboard_item.as_egui_response(ctx, ui);
                         }
                     }
@@ -103,11 +118,8 @@ impl eframe::App for ClipboardViewerApp {
 
         egui::TopBottomPanel::bottom("bottom_panel").show(ctx, |ui| {
             egui::menu::bar(ui, |ui| {
-                #[cfg(target_os = "macos")]
-                {
-                    if let Some(clipboard_item) = clipboard_item {
-                        ui.label(format!("Clipboard contents: {}", clipboard_item));
-                    }
+                if let Some(clipboard_item) = &self.current_item {
+                    ui.label(format!("Clipboard contents: {:?}", clipboard_item));
                 }
             });
         });
