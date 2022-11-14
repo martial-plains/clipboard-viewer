@@ -1,7 +1,6 @@
 use libclipboard::Clipboard;
 
 use crate::clipboard::EguiClipboardItem;
-#[cfg(target_os = "macos")]
 use crate::utils::open_with_default;
 
 #[derive(Default)]
@@ -16,11 +15,9 @@ pub struct ClipboardViewerApp {
     #[serde(skip)]
     window: Window,
 
-    #[cfg(target_os = "macos")]
     #[serde(skip)]
     clipboard: Clipboard,
 
-    #[cfg(target_os = "macos")]
     #[serde(skip)]
     current_item: Option<EguiClipboardItem>,
 }

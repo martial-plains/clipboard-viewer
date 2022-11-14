@@ -7,6 +7,7 @@ use pdf::file::File;
 
 use crate::utils::open_with_default;
 
+#[cfg(target_os = "macos")]
 pub mod macos;
 
 pub enum EguiClipboardItem {
