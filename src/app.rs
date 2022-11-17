@@ -66,11 +66,8 @@ impl eframe::App for ClipboardViewerApp {
     /// Called each time the UI needs repainting, which may be many times per second.
     /// Put your widgets into a `SidePanel`, `TopPanel`, `CentralPanel`, `Window` or `Area`.
     fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
-        #[cfg(target_os = "macos")]
-        {
-            if self.clipboard.has_changed() {
-                self.current_item = EguiClipboardItem::get_clipboard_item(&self.clipboard);
-            }
+        if self.clipboard.has_changed() {
+            self.current_item = EguiClipboardItem::get_clipboard_item(&self.clipboard);
         }
 
         egui::TopBottomPanel::top("top_panel").show(ctx, |ui| {
@@ -103,11 +100,8 @@ impl eframe::App for ClipboardViewerApp {
             egui::ScrollArea::vertical()
                 .auto_shrink([false, false])
                 .show(ui, |ui| {
-                    #[cfg(target_os = "macos")]
-                    {
-                        if let Some(clipboard_item) = &self.current_item {
-                            clipboard_item.as_egui_response(ctx, ui);
-                        }
+                    if let Some(clipboard_item) = &self.current_item {
+                        clipboard_item.as_egui_response(ctx, ui);
                     }
                 });
             // The central panel the region left after adding TopPanel's and SidePanel's

@@ -4,5 +4,4 @@ mod app;
 pub use app::ClipboardViewerApp;
 
 mod clipboard;
-
 mod utils;

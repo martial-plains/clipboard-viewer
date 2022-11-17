@@ -21,7 +21,7 @@ image = { version = "0.24.5", features = ["jpeg", "png", "tiff"] }
 serde = { version = "1.0.147", features = ["derive"] }
 log = "0.4.17"
 tracing-subscriber = "0.3.16"
-pdf = "0.7.2"
+pdf = { git = "https://github.com/pdf-rs/pdf", branch = "master" }
 libclipboard = { git = "https://github.com/a-isaiahharvey/libclipboard-rs", branch = "main" }
 cfg-if = "1.0"
 
