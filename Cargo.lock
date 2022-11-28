@@ -365,7 +365,7 @@ dependencies = [
 
 [[package]]
 name = "clipboard_viewer"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "cfg-if",
  "eframe",
@@ -1488,7 +1488,7 @@ checksum = "fc7fcc620a3bff7cdd7a365be3376c97191aeaccc2a603e600951e452615bf89"
 [[package]]
 name = "libclipboard"
 version = "0.1.0"
-source = "git+https://github.com/a-isaiahharvey/libclipboard-rs?branch=main#ad4d98dcc6c9dd16d3c984351dd24c8f566dceec"
+source = "git+https://github.com/a-isaiahharvey/libclipboard-rs?branch=main#0530883e9b4e05c0e47d86bf92d9e03418fcf067"
 dependencies = [
  "cfg-if",
  "rust-macios 0.4.0",
