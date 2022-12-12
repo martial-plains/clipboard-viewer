@@ -942,9 +942,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "ecolor"
+version = "0.20.0"
+source = "git+https://github.com/emilk/egui?branch=master#c58ac86935123415ea3c1531d735e708465267b6"
+dependencies = [
+ "bytemuck",
+ "serde",
+]
+
+[[package]]
 name = "eframe"
-version = "0.19.0"
-source = "git+https://github.com/emilk/egui?branch=master#32144d3cb9e236a0cb3d4980c9617b24504d891f"
+version = "0.20.1"
+source = "git+https://github.com/emilk/egui?branch=master#c58ac86935123415ea3c1531d735e708465267b6"
 dependencies = [
  "bytemuck",
  "dark-light",
@@ -959,6 +968,7 @@ dependencies = [
  "raw-window-handle 0.5.0",
  "ron",
  "serde",
+ "thiserror",
  "tracing",
  "wasm-bindgen",
  "wasm-bindgen-futures",
@@ -968,8 +978,8 @@ dependencies = [
 
 [[package]]
 name = "egui"
-version = "0.19.0"
-source = "git+https://github.com/emilk/egui?branch=master#32144d3cb9e236a0cb3d4980c9617b24504d891f"
+version = "0.20.1"
+source = "git+https://github.com/emilk/egui?branch=master#c58ac86935123415ea3c1531d735e708465267b6"
 dependencies = [
  "accesskit",
  "ahash 0.8.2",
@@ -982,8 +992,8 @@ dependencies = [
 
 [[package]]
 name = "egui-winit"
-version = "0.19.0"
-source = "git+https://github.com/emilk/egui?branch=master#32144d3cb9e236a0cb3d4980c9617b24504d891f"
+version = "0.20.1"
+source = "git+https://github.com/emilk/egui?branch=master#c58ac86935123415ea3c1531d735e708465267b6"
 dependencies = [
  "accesskit_winit",
  "arboard",
@@ -998,8 +1008,8 @@ dependencies = [
 
 [[package]]
 name = "egui_extras"
-version = "0.19.0"
-source = "git+https://github.com/emilk/egui?branch=master#32144d3cb9e236a0cb3d4980c9617b24504d891f"
+version = "0.20.0"
+source = "git+https://github.com/emilk/egui?branch=master#c58ac86935123415ea3c1531d735e708465267b6"
 dependencies = [
  "egui",
  "image",
@@ -1008,8 +1018,8 @@ dependencies = [
 
 [[package]]
 name = "egui_glow"
-version = "0.19.0"
-source = "git+https://github.com/emilk/egui?branch=master#32144d3cb9e236a0cb3d4980c9617b24504d891f"
+version = "0.20.1"
+source = "git+https://github.com/emilk/egui?branch=master#c58ac86935123415ea3c1531d735e708465267b6"
 dependencies = [
  "bytemuck",
  "egui",
@@ -1028,8 +1038,8 @@ checksum = "90e5c1c8368803113bf0c9584fc495a58b86dc8a29edbf8fe877d21d9507e797"
 
 [[package]]
 name = "emath"
-version = "0.19.0"
-source = "git+https://github.com/emilk/egui?branch=master#32144d3cb9e236a0cb3d4980c9617b24504d891f"
+version = "0.20.0"
+source = "git+https://github.com/emilk/egui?branch=master#c58ac86935123415ea3c1531d735e708465267b6"
 dependencies = [
  "bytemuck",
  "serde",
@@ -1080,13 +1090,14 @@ dependencies = [
 
 [[package]]
 name = "epaint"
-version = "0.19.0"
-source = "git+https://github.com/emilk/egui?branch=master#32144d3cb9e236a0cb3d4980c9617b24504d891f"
+version = "0.20.0"
+source = "git+https://github.com/emilk/egui?branch=master#c58ac86935123415ea3c1531d735e708465267b6"
 dependencies = [
  "ab_glyph",
  "ahash 0.8.2",
  "atomic_refcell",
  "bytemuck",
+ "ecolor",
  "emath",
  "nohash-hasher",
  "parking_lot",
