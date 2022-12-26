@@ -18,7 +18,7 @@ egui_extras = { git = "https://github.com/emilk/egui", branch = "master", featur
     "image",
 ] }
 image = { version = "0.24.5", features = ["jpeg", "png", "tiff"] }
-serde = { version = "1.0.151", features = ["derive"] }
+serde = { version = "1.0.152", features = ["derive"] }
 log = "0.4.17"
 tracing-subscriber = "0.3.16"
 pdf = { git = "https://github.com/pdf-rs/pdf", branch = "master" }
