@@ -794,17 +794,18 @@ dependencies = [
 
 [[package]]
 name = "datasize"
-version = "0.2.10"
-source = "git+https://github.com/s3bk/datasize-rs#cfb7ded25512dd85be731d3a286ac4710d988b1e"
+version = "0.2.13"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3319c13ed12c1ce89494db62541bc66759c8870c3562bdf7b25b930420a00432"
 dependencies = [
  "datasize_derive",
 ]
 
 [[package]]
 name = "datasize_derive"
-version = "0.2.11"
+version = "0.2.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ecd3ee63556774dd6d8a6b98416475dd5e35872985699bbb19c4d7ad4ccecaff"
+checksum = "4abd50b37ab87677c31190aad6b4186be9993a618ff753c4b007551de6841ee8"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1522,7 +1523,7 @@ dependencies = [
  "color_quant",
  "exr",
  "gif",
- "jpeg-decoder 0.3.0",
+ "jpeg-decoder",
  "num-rational",
  "num-traits",
  "png",
@@ -1553,8 +1554,9 @@ dependencies = [
 
 [[package]]
 name = "istring"
-version = "0.3.2"
-source = "git+https://github.com/s3bk/istring#3a3f9202fbefb37a856ef8d2ecad5f9a88aab2f2"
+version = "0.3.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "80fa5ca8bf0d6cc95e94ac834a7c27da3daacd089dc6284d85df18db23510664"
 dependencies = [
  "datasize",
 ]
@@ -1587,12 +1589,6 @@ name = "jni-sys"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8eaf4bc02d17cbdd7ff4c7438cafcdf7fb9a4613313ad11b4f8fefe7d3fa0130"
-
-[[package]]
-name = "jpeg-decoder"
-version = "0.2.6"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9478aa10f73e7528198d75109c8be5cd7d15fb530238040148d5f9a22d4c5b3b"
 
 [[package]]
 name = "jpeg-decoder"
@@ -2081,7 +2077,7 @@ checksum = "b1de2e551fb905ac83f73f7aedf2f0cb4a0da7e35efa24a202a936269f1f18e1"
 [[package]]
 name = "pdf"
 version = "0.8.0"
-source = "git+https://github.com/pdf-rs/pdf?branch=master#9ab086ca2285e2033b5478c5265d8f03c7378783"
+source = "git+https://github.com/pdf-rs/pdf?branch=master#144b5b4fbf5e539917dc935e18474436d45b2dd2"
 dependencies = [
  "aes",
  "bitflags",
@@ -2093,7 +2089,7 @@ dependencies = [
  "inflate",
  "istring",
  "itertools",
- "jpeg-decoder 0.2.6",
+ "jpeg-decoder",
  "log",
  "md5",
  "once_cell",
@@ -2107,7 +2103,7 @@ dependencies = [
 [[package]]
 name = "pdf_derive"
 version = "0.1.22"
-source = "git+https://github.com/pdf-rs/pdf?branch=master#9ab086ca2285e2033b5478c5265d8f03c7378783"
+source = "git+https://github.com/pdf-rs/pdf?branch=master#144b5b4fbf5e539917dc935e18474436d45b2dd2"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -2736,7 +2732,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f17def29300a156c19ae30814710d9c63cd50288a49c6fd3a10ccfbe4cf886fd"
 dependencies = [
  "flate2",
- "jpeg-decoder 0.3.0",
+ "jpeg-decoder",
  "weezl",
 ]
 
